@@ -5,3 +5,6 @@ Momentum bevaras  vilket ger grunden till spelmekaniken. För att klara av nivå
 den hastighet man har samlat upp för att rikta om den med hjälp utav dessa portaler. 
 
 Projektet ska skrivas i Python med biblioteket PyGame och PC är den plattform som spelet ska riktas till. 
+
+Fysikberäkningarna kommer fokuseras mest kring kaströrelser med mestadels vinklar som 0,90,180,270 grader men möjligtvis även
+45 och 135 graders vinklar. 
