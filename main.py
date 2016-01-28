@@ -30,10 +30,11 @@ class Game:
             
             self.check_collision()
             
-            self.input()
             
             self.player.update(self.delta_time)
             
+            
+            self.input()
             self.draw()
             
             pygame.display.update()
@@ -82,6 +83,7 @@ class Game:
             if(event.type == pygame.QUIT):
                 self.is_running = False
                 
+        # check for keyboard input        
         pressed = pygame.key.get_pressed()
         
         if(pressed[pygame.K_d]):
@@ -89,7 +91,10 @@ class Game:
         if(pressed[pygame.K_a]):
             self.player.move_horizontal(-1,self.delta_time)
 
-
+        if(pressed[pygame.K_SPACE]):
+            print("Space is pressed")
+            self.player.jump()
+           
 
 
 def run():
