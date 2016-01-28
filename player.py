@@ -4,24 +4,36 @@ class Player:
 
     def __init__(self, xpos, ypos, direc):
 
-        self.xpos = xpos
-        self.ypos = ypos
-        self.direc = direc
+        self._xpos = xpos
+        self._ypos = ypos
+        self._direc = direc
+        
 
+
+    def draw(self, pg, window):
+        """ draws the player""" 
+        rect = pg.Rect(self._xpos, self._ypos, 30,50)
+        color = (0,0,0)
+        
+        pg.draw.rect(window,color,rect,5)
+    
+
+        
+    
     def get_x(self):
-        return self.xpos
+        return self._xpos
 
     def get_y(self):
-        return self.ypos
+        return self._ypos
 
     def get_direc(self):
-        return self.direc
+        return self._direc
 
     def set_x(self, xpos):
-        self.xpos = xpos
+        self._xpos = xpos
 
     def set_y(self, ypos):
-        self.ypos = ypos
+        self._ypos = ypos
 
     def set_direc(self, direc):
-        self.direc = direc
+        self._direc = direc
