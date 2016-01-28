@@ -89,7 +89,6 @@ class Game:
             if(wall_d == "left"):
                 if(player_x < wall_x + 5 and player_y > wall_y + 5 and player_y < wall_h):
                     self.player.movable_horizontal("left")
-                    print("int fan kan du gå åt vänster")
                     break
                 else: 
                     self.player.movable_horizontal("")
