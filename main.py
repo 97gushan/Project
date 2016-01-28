@@ -28,6 +28,7 @@ class Game:
             self.delta_time = self.clock.tick(400) / 1000
             #print(delta_time)
             
+            self.check_collision()
             
             self.input()
             
@@ -44,7 +45,25 @@ class Game:
         self.player.draw(pygame, self.window)
         
         self.ground.draw(pygame, self.window)
+    
+    def check_collision(self):
+        """ this method controlls the collision detection of everything 
+            in this game"""
 
+        player_x = self.player.get_x()
+        player_y = self.player.get_y() + 50 # player position plus the height to check collision under it
+            
+        # player and ground collision
+        ground_x = self.ground.get_x()
+        ground_y = self.ground.get_y()
+        ground_w = self.ground.get_width() + self.ground.get_x()
+        
+        if(player_y > ground_y and player_x >= ground_x and player_x < ground_w):
+            self.player.set_grounded(True)
+        else:
+            self.player.set_grounded(False)
+    
+    
     def input(self):
         """ this method checks for input from the user"""
         
