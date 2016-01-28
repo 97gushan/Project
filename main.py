@@ -3,43 +3,59 @@ import pygame
 pygame.init()
 
 
-def update(delta_time):
-    """ this method handels all the things that will happen
-        every time the code runs"""
-    pass
-    
-def draw():
-    """ this method handels the draws on the screen"""
-    pass
+class Game:
+    def __init__(self):
+        # Setting up the window
+        self.window = pygame.display.set_mode((500,500))
+        pygame.display.set_caption("Portal")
 
-def input():
-    """ this method checks for input from the user"""
-    for event in pygame.event.get():
+        self.clock = pygame.time.Clock()
         
-        # check for quit event
-        if(event.type == pygame.QUIT):
-            global is_running
-            is_running = False
+        self.is_running = True
+        
+        self.delta_time = 0
+        
+        
+    def update(self):
+        """ this method handels all the things that will happen
+            every time the code runs"""
+            
+        # create the game loop
+        while self.is_running:
+            self.delta_time = self.clock.tick() / 1000
+            #print(delta_time)
+            
+            
+            self.input()
+            self.draw()
+            
+            pygame.display.update()
+        
+    def draw(self):
+        """ this method handels the draws on the screen"""
+        pass
+
+    def input(self):
+        """ this method checks for input from the user"""
+        
+        # mouse position
+        mouse_x = pygame.mouse.get_pos()[0]
+        mouse_y = pygame.mouse.get_pos()[1]
+        print(mouse_x, mouse_y)
+        
+        for event in pygame.event.get():
+            
+            # check for quit event
+            if(event.type == pygame.QUIT):
+                self.is_running = False
 
 
-# Setting up the window
-window = pygame.display.set_mode((500,500))
-pygame.display.set_caption("Portal")
-
-clock = pygame.time.Clock()
 
 
-
-is_running = True
-
-# create the game loop
-while is_running:
-    delta_time = clock.tick() / 1000
-    print(delta_time)
+def run():
+    game = Game()
+    game.update()
     
-    
-    input()
-    update(delta_time)
-    draw()
-    
-    pygame.display.update()
+
+if(__name__ == "__main__"):
+    run()
