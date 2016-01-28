@@ -44,6 +44,7 @@ class Game:
         
         self.player.draw(pygame, self.window)
         
+        # draw all the ground
         for n in range(len(self.ground)):
             self.ground[n].draw(pygame, self.window)
     
@@ -80,6 +81,13 @@ class Game:
             # check for quit event
             if(event.type == pygame.QUIT):
                 self.is_running = False
+                
+        pressed = pygame.key.get_pressed()
+        
+        if(pressed[pygame.K_d]):
+            self.player.move_horizontal(1,self.delta_time)
+        if(pressed[pygame.K_a]):
+            self.player.move_horizontal(-1,self.delta_time)
 
 
 

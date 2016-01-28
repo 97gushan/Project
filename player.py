@@ -33,6 +33,18 @@ class Player:
             self._ypos += gravity_calc[0]
             self._velocity_y = gravity_calc[1]
         
+    def move_horizontal(self, direc, dt):
+        """ this method moves the player on the x axis
+            depending on the direction. 
+            It also takes into acount if the player is in the
+            air or not, if he is => move slower
+                        if not => move faster"""
+        if self._grounded:
+            self._xpos += direc * (0.75 + dt)
+        else:
+            self._xpos += direc * (0.15 + dt)
+            
+    
     
     def get_x(self):
         return self._xpos
