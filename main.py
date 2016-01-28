@@ -26,7 +26,6 @@ class Game:
         # create the game loop
         while self.is_running:
             self.delta_time = self.clock.tick(400) / 1000
-            #print(delta_time)
             
             self.check_collision()
             
@@ -75,7 +74,6 @@ class Game:
         # mouse position
         mouse_x = pygame.mouse.get_pos()[0]
         mouse_y = pygame.mouse.get_pos()[1]
-        #print(mouse_x, mouse_y)
         
         for event in pygame.event.get():
             
@@ -92,7 +90,6 @@ class Game:
             self.player.move_horizontal(-1,self.delta_time)
 
         if(pressed[pygame.K_SPACE]):
-            print("Space is pressed")
             self.player.jump()
            
 
