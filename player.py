@@ -32,6 +32,8 @@ class Player:
             gravity_calc = physics.gravity(self._velocity_y, dt)
             self._ypos += gravity_calc[0]
             self._velocity_y = gravity_calc[1]
+        else:
+            self._velocity_y = 0
         
     def move_horizontal(self, direc, dt):
         """ this method moves the player on the x axis
@@ -44,7 +46,11 @@ class Player:
         else:
             self._xpos += direc * (0.15 + dt)
             
-    
+    def jump(self):
+        """ this method makes the player jump if the player is touching the ground"""
+        if self._grounded:
+            self._velocity_y = -50 # change velocity so the player moves upwards
+            self._ypos -= 5 # change the y-pos a little bit so it wont get stuck on the line
     
     def get_x(self):
         return self._xpos
