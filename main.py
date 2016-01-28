@@ -1,6 +1,7 @@
 import pygame
 
 import player
+import terrain
 
 class Game:
     def __init__(self):
@@ -15,6 +16,8 @@ class Game:
         self.delta_time = 0
         
         self.player = player.Player(70,100,2)
+        
+        self.ground = terrain.Ground(0,400,300)
         
     def update(self):
         """ this method handels all the things that will happen
@@ -39,6 +42,8 @@ class Game:
         self.window.fill((255,255,255))
         
         self.player.draw(pygame, self.window)
+        
+        self.ground.draw(pygame, self.window)
 
     def input(self):
         """ this method checks for input from the user"""
