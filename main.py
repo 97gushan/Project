@@ -6,7 +6,7 @@ import terrain
 class Game:
     def __init__(self):
         # Setting up the window
-        self.window = pygame.display.set_mode((500,500))
+        self.window = pygame.display.set_mode((900,800))
         pygame.display.set_caption("Portal")
 
         self.clock = pygame.time.Clock()
@@ -17,7 +17,7 @@ class Game:
         
         self.player = player.Player(70,100,2)
         
-        self.ground = [terrain.Ground(0,400,300)]
+        self.ground = [terrain.Ground(0,400,300),terrain.Ground(400,600,300)]
         
     def update(self):
         """ this method handels all the things that will happen
@@ -64,6 +64,7 @@ class Game:
             # check if the player touches the ground
             if(player_y > ground_y and player_x >= ground_x and player_x < ground_w):
                 self.player.set_grounded(True)
+                break
             else:
                 self.player.set_grounded(False)
     
