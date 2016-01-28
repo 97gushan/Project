@@ -16,6 +16,8 @@ class Player:
         
         self._grounded = False
 
+        self._movable = ""
+        
     def draw(self, pg, window):
         """ draws the player""" 
         rect = pg.Rect(self._xpos, self._ypos, 30,50)
@@ -41,16 +43,24 @@ class Player:
             It also takes into acount if the player is in the
             air or not, if he is => move slower
                         if not => move faster"""
-        if self._grounded:
-            self._xpos += direc * (0.85 + dt)
+                        
+        if(self._movable == "left" and direc == -1 or
+            self._movable == "right" and direc == 1) :
+            pass
         else:
-            self._xpos += direc * (0.55 + dt)
-            
+            if self._grounded:
+                self._xpos += direc * (0.85 + dt) 
+            else:
+                self._xpos += direc * (0.55 + dt)
+                
     def jump(self):
         """ this method makes the player jump if the player is touching the ground"""
         if self._grounded:
             self._velocity_y = -75 # change velocity so the player moves upwards
             self._ypos -= 5 # change the y-pos a little bit so it wont get stuck on the line
+    
+    def movable_horizontal(self, state):
+        self._movable = state
     
     def get_x(self):
         return self._xpos

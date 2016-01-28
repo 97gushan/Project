@@ -19,7 +19,7 @@ class Game:
         
         self.ground = [terrain.Ground(0,400,300),terrain.Ground(400,600,300)]
         
-        self.wall = [terrain.Wall(10,10,500,"left")]
+        self.wall = [terrain.Wall(10,10,500,"left"),terrain.Wall(300,10,500,"right"),]
         
     def update(self):
         """ this method handels all the things that will happen
@@ -61,8 +61,9 @@ class Game:
         player_x = self.player.get_x()
         player_y = self.player.get_y() + 50 # player position plus the height to check collision under it
         
+        
+        # player and ground collision
         for n in range(len(self.ground)):
-            # player and ground collision
             ground_x = self.ground[n].get_x()
             ground_y = self.ground[n].get_y()
             ground_w = self.ground[n].get_width() + self.ground[n].get_x()
@@ -75,6 +76,27 @@ class Game:
             else:
                 self.player.set_grounded(False)
     
+        # player and wall collision
+        for n in range(len(self.wall)):
+            wall_x = self.wall[n].get_x()
+            wall_y = self.wall[n].get_y()
+            wall_h = self.wall[n].get_height() + self.wall[n].get_y()
+            wall_d = self.wall[n].get_direc()
+            
+            # check if the player touches the wall
+            if(wall_d == "left"):
+                if(player_x < wall_x + 2 and player_y + 50 > wall_y and player_y < wall_h):
+                    self.player.movable_horizontal("left")
+                    break
+                else: 
+                    self.player.movable_horizontal("")
+                    
+            if(wall_d == "right"):
+                if(player_x + 30> wall_x - 2 and player_y + 50 > wall_y and player_y < wall_h):
+                    self.player.movable_horizontal("right")
+                    break
+                else: 
+                    self.player.movable_horizontal("")
     
     def input(self):
         """ this method checks for input from the user"""
