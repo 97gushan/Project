@@ -1,7 +1,6 @@
 import pygame
 
-pygame.init()
-
+import player
 
 class Game:
     def __init__(self):
@@ -15,6 +14,7 @@ class Game:
         
         self.delta_time = 0
         
+        self.player = player.Player(70,100,2)
         
     def update(self):
         """ this method handels all the things that will happen
@@ -22,18 +22,23 @@ class Game:
             
         # create the game loop
         while self.is_running:
-            self.delta_time = self.clock.tick() / 1000
+            self.delta_time = self.clock.tick(400) / 1000
             #print(delta_time)
             
             
             self.input()
+            
+            self.player.update(self.delta_time)
+            
             self.draw()
             
             pygame.display.update()
         
     def draw(self):
         """ this method handels the draws on the screen"""
-        pass
+        self.window.fill((255,255,255))
+        
+        self.player.draw(pygame, self.window)
 
     def input(self):
         """ this method checks for input from the user"""
@@ -41,7 +46,7 @@ class Game:
         # mouse position
         mouse_x = pygame.mouse.get_pos()[0]
         mouse_y = pygame.mouse.get_pos()[1]
-        print(mouse_x, mouse_y)
+        #print(mouse_x, mouse_y)
         
         for event in pygame.event.get():
             
@@ -53,6 +58,9 @@ class Game:
 
 
 def run():
+
+    pygame.init()
+    
     game = Game()
     game.update()
     
