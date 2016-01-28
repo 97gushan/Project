@@ -8,7 +8,7 @@ class Ground:
         
     def draw(self, pg, window):
         
-        box_color = (0,00,0)
+        box_color = (45,45,45)
         line_color = (0,255,255)
         
         # draw out ground beneath the line
