@@ -17,7 +17,7 @@ class Game:
         
         self.player = player.Player(70,100,2)
         
-        self.ground = terrain.Ground(0,400,300)
+        self.ground = [terrain.Ground(0,400,300)]
         
     def update(self):
         """ this method handels all the things that will happen
@@ -44,7 +44,8 @@ class Game:
         
         self.player.draw(pygame, self.window)
         
-        self.ground.draw(pygame, self.window)
+        for n in range(len(self.ground)):
+            self.ground[n].draw(pygame, self.window)
     
     def check_collision(self):
         """ this method controlls the collision detection of everything 
@@ -52,16 +53,18 @@ class Game:
 
         player_x = self.player.get_x()
         player_y = self.player.get_y() + 50 # player position plus the height to check collision under it
-            
-        # player and ground collision
-        ground_x = self.ground.get_x()
-        ground_y = self.ground.get_y()
-        ground_w = self.ground.get_width() + self.ground.get_x()
         
-        if(player_y > ground_y and player_x >= ground_x and player_x < ground_w):
-            self.player.set_grounded(True)
-        else:
-            self.player.set_grounded(False)
+        for n in range(len(self.ground)):
+            # player and ground collision
+            ground_x = self.ground[n].get_x()
+            ground_y = self.ground[n].get_y()
+            ground_w = self.ground[n].get_width() + self.ground[n].get_x()
+            
+            # check if the player touches the ground
+            if(player_y > ground_y and player_x >= ground_x and player_x < ground_w):
+                self.player.set_grounded(True)
+            else:
+                self.player.set_grounded(False)
     
     
     def input(self):
