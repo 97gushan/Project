@@ -1,5 +1,8 @@
+import physics
+
 
 class Player:
+
     """ This class describes how the player will work and interact"""
 
     def __init__(self, xpos, ypos, direc):
@@ -8,8 +11,7 @@ class Player:
         self._ypos = ypos
         self._direc = direc
         
-        self._delta_t = 0.025
-        self._velocity_y = - 50
+        self._velocity_y = - 20
         self._delta_y = 0
 
     def draw(self, pg, window):
@@ -21,9 +23,12 @@ class Player:
     
     def update(self, dt):
         """ update method"""
-        self._velocity_y = self._velocity_y + (self._delta_t + dt) * 9.82
-        self._delta_y = (self._delta_t + dt) * self._velocity_y
-        self._ypos += self._delta_y
+        
+        # call the gravity function to move the player in a 
+        # kinda realistic way
+        gravity_calc = physics.gravity(self._velocity_y, dt)
+        self._ypos += gravity_calc[0]
+        self._velocity_y = gravity_calc[1]
         
     
     def get_x(self):
