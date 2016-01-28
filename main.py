@@ -17,9 +17,11 @@ class Game:
         
         self.player = player.Player(70,100,2)
         
-        self.ground = [terrain.Ground(0,400,300),terrain.Ground(400,600,300)]
+        self.ground = [terrain.Ground(0,300,300),terrain.Ground(300,600,400),
+                       terrain.Ground(700,400,200)]
         
-        self.wall = [terrain.Wall(10,10,500,"left"),terrain.Wall(300,10,500,"right"),]
+        self.wall = [terrain.Wall(300,300,300,"left"),terrain.Wall(700,400,200,"right"),
+                     terrain.Wall(0,0,300,"left"),terrain.Wall(899,0,400,"right"),]
         
     def update(self):
         """ this method handels all the things that will happen
@@ -69,7 +71,7 @@ class Game:
             ground_w = self.ground[n].get_width() + self.ground[n].get_x()
             
             # check if the player touches the ground
-            if(player_y > ground_y-2 and player_x + 30 >= ground_x and player_x < ground_w):
+            if(player_y > ground_y-5 and player_x + 30 > ground_x and player_x < ground_w):
                 self.player.set_grounded(True)
                 break
             
@@ -85,14 +87,15 @@ class Game:
             
             # check if the player touches the wall
             if(wall_d == "left"):
-                if(player_x < wall_x + 2 and player_y + 50 > wall_y and player_y < wall_h):
+                if(player_x < wall_x + 5 and player_y > wall_y + 5 and player_y < wall_h):
                     self.player.movable_horizontal("left")
+                    print("int fan kan du gå åt vänster")
                     break
                 else: 
                     self.player.movable_horizontal("")
                     
-            if(wall_d == "right"):
-                if(player_x + 30> wall_x - 2 and player_y + 50 > wall_y and player_y < wall_h):
+            elif(wall_d == "right"):
+                if(player_x + 30 > wall_x - 5 and player_y > wall_y and player_y < wall_h):
                     self.player.movable_horizontal("right")
                     break
                 else: 
