@@ -7,7 +7,19 @@ class Ground:
         self._width = width
         
     def draw(self, pg, window):
-        pg.draw.line(window, (0,255,255), (self._xpos, self._ypos), (self._xpos + self._width, self._ypos),1)
+        
+        box_color = (0,00,0)
+        line_color = (0,255,255)
+        
+        # draw out ground beneath the line
+        height = 800 - self._ypos
+        rect = pg.Rect(self._xpos, self._ypos, self._width,height)
+        
+
+
+        
+        pg.draw.rect(window,box_color,rect,0)
+        pg.draw.line(window, line_color, (self._xpos, self._ypos), (self._xpos + self._width, self._ypos),1)
         
         
     def get_x(self):
