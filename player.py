@@ -42,14 +42,14 @@ class Player:
             air or not, if he is => move slower
                         if not => move faster"""
         if self._grounded:
-            self._xpos += direc * (0.75 + dt)
+            self._xpos += direc * (0.85 + dt)
         else:
-            self._xpos += direc * (0.15 + dt)
+            self._xpos += direc * (0.55 + dt)
             
     def jump(self):
         """ this method makes the player jump if the player is touching the ground"""
         if self._grounded:
-            self._velocity_y = -50 # change velocity so the player moves upwards
+            self._velocity_y = -75 # change velocity so the player moves upwards
             self._ypos -= 5 # change the y-pos a little bit so it wont get stuck on the line
     
     def get_x(self):

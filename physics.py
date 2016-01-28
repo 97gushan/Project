@@ -4,7 +4,7 @@ def gravity(v, dt):
         the acceleration of 9.82"""
         
     # a constant
-    k = 0.01
+    k = 0.06
     
     # calculate the new velocity
     v = v + (k + dt) * 9.82
