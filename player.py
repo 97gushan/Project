@@ -8,7 +8,9 @@ class Player:
         self._ypos = ypos
         self._direc = direc
         
-
+        self._delta_t = 0.025
+        self._velocity_y = - 50
+        self._delta_y = 0
 
     def draw(self, pg, window):
         """ draws the player""" 
@@ -17,7 +19,11 @@ class Player:
         
         pg.draw.rect(window,color,rect,5)
     
-
+    def update(self, dt):
+        """ update method"""
+        self._velocity_y = self._velocity_y + (self._delta_t + dt) * 9.82
+        self._delta_y = (self._delta_t + dt) * self._velocity_y
+        self._ypos += self._delta_y
         
     
     def get_x(self):
