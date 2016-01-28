@@ -19,6 +19,8 @@ class Game:
         
         self.ground = [terrain.Ground(0,400,300),terrain.Ground(400,600,300)]
         
+        self.wall = [terrain.Wall(10,10,500,"left")]
+        
     def update(self):
         """ this method handels all the things that will happen
             every time the code runs"""
@@ -47,6 +49,10 @@ class Game:
         # draw all the ground
         for n in range(len(self.ground)):
             self.ground[n].draw(pygame, self.window)
+            
+        # draw all the walls    
+        for n in range(len(self.wall)):
+            self.wall[n].draw(pygame, self.window)
     
     def check_collision(self):
         """ this method controlls the collision detection of everything 
@@ -62,9 +68,10 @@ class Game:
             ground_w = self.ground[n].get_width() + self.ground[n].get_x()
             
             # check if the player touches the ground
-            if(player_y > ground_y and player_x >= ground_x and player_x < ground_w):
+            if(player_y > ground_y-2 and player_x + 30 >= ground_x and player_x < ground_w):
                 self.player.set_grounded(True)
                 break
+            
             else:
                 self.player.set_grounded(False)
     
