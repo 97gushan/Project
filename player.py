@@ -13,6 +13,8 @@ class Player:
         
         self._velocity_y = - 20
         self._delta_y = 0
+        
+        self._grounded = False
 
     def draw(self, pg, window):
         """ draws the player""" 
@@ -24,11 +26,12 @@ class Player:
     def update(self, dt):
         """ update method"""
         
-        # call the gravity function to move the player in a 
-        # kinda realistic way
-        gravity_calc = physics.gravity(self._velocity_y, dt)
-        self._ypos += gravity_calc[0]
-        self._velocity_y = gravity_calc[1]
+        if not self._grounded:
+            # call the gravity function to move the player in a 
+            # kinda realistic way
+            gravity_calc = physics.gravity(self._velocity_y, dt)
+            self._ypos += gravity_calc[0]
+            self._velocity_y = gravity_calc[1]
         
     
     def get_x(self):
@@ -48,3 +51,6 @@ class Player:
 
     def set_direc(self, direc):
         self._direc = direc
+        
+    def set_grounded(self, state):
+        self._grounded = state
