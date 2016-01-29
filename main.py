@@ -76,6 +76,8 @@ class Game:
         player_x = self.player.get_x()
         player_y = self.player.get_y() + 50 # player position plus the height to check collision under it
         
+        positioner_x = self.portal_positioner.get_x()
+        positioner_y = self.portal_positioner.get_y()
         
         # player and ground collision
         for n in range(len(self.ground)):
@@ -87,9 +89,11 @@ class Game:
             if(player_y > ground_y-5 and player_x + 30 > ground_x and player_x < ground_w):
                 self.player.set_grounded(True)
                 break
-            
             else:
                 self.player.set_grounded(False)
+        
+        
+
     
         # player and wall collision
         for n in range(len(self.wall)):
@@ -112,7 +116,45 @@ class Game:
                     break
                 else: 
                     self.player.movable_horizontal("")
-    
+        
+        
+        """ check for collision between the portal positioner and the terrain"""
+        if(self.portal_positioner.get_active()):
+            # ground
+            for n in range(len(self.ground)):
+                ground_x = self.ground[n].get_x()
+                ground_y = self.ground[n].get_y()
+                ground_w = self.ground[n].get_width() + self.ground[n].get_x()
+                
+                
+                # check if the positioner touches the ground
+                if(positioner_y > ground_y-5 and positioner_x > ground_x and positioner_x < ground_w):
+                    self.portal_1.set_active(True)
+                    self.portal_positioner.set_active(False)
+                    break
+                        
+            # wall
+            for n in range(len(self.wall)):
+                wall_x = self.wall[n].get_x()
+                wall_y = self.wall[n].get_y()
+                wall_h = self.wall[n].get_height() + self.wall[n].get_y()
+                wall_d = self.wall[n].get_direc()
+                
+                # check if the positioner touches the left wall
+                if(wall_d == "left"):
+                    if(positioner_x < wall_x + 5 and positioner_y > wall_y + 5 and positioner_y < wall_h):
+                        self.portal_1.set_active(True)
+                        self.portal_positioner.set_active(False)
+                        break
+
+                        
+                # check if the positioner touches the right wall
+                elif(wall_d == "right"):
+                    if(positioner_x + 30 > wall_x - 5 and positioner_y > wall_y and positioner_y < wall_h):
+                        self.portal_1.set_active(True)
+                        self.portal_positioner.set_active(False)
+                        break
+        
     def input(self):
         """ this method checks for input from the user"""
         
@@ -143,20 +185,24 @@ class Game:
         
         # check if left mouse button is pressed
         if(pressed[0]):
-            self.portal_positioner.set_x(self.player.get_x())
-            self.portal_positioner.set_y(self.player.get_y())
+           
+            # get the x and y values between the player and the mouse
             x = mouse_x - self.player.get_x()
             y = mouse_y - self.player.get_y()
             
+            # calculate the angle
             angle = atan2(y,x)
             
+            # call all the necesary methods of the portal_positioner object
+            self.portal_positioner.set_x(self.player.get_x())
+            self.portal_positioner.set_y(self.player.get_y())
             self.portal_positioner.set_active(True)
             self.portal_positioner.set_angle(angle)
             print("left is pressed")
         
         # check if right mouse button is pressed
         if(pressed[2]):
-            print("right is pressed")
+            self.portal_1.set_active(False)
 
 def run():
 
