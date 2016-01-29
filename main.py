@@ -1,8 +1,9 @@
 import pygame
-
+from math import atan2
 import player
 import terrain
 import portal
+import portal_positioner
 
 class Game:
     def __init__(self):
@@ -27,6 +28,8 @@ class Game:
         self.portal_1 = portal.Portal(0,0,(255,0,0),0)
         self.portal_2 = portal.Portal(0,0,(0,0,255),0)
         
+        self.portal_positioner = portal_positioner.Portal_Positioner()
+        
     def update(self):
         """ this method handels all the things that will happen
             every time the code runs"""
@@ -40,6 +43,7 @@ class Game:
             
             self.player.update(self.delta_time)
             
+            self.portal_positioner.move(self.delta_time)
             
             self.input()
             self.draw()
@@ -62,6 +66,8 @@ class Game:
             
         self.portal_1.draw(pygame, self.window)
         self.portal_2.draw(pygame, self.window)
+        
+        self.portal_positioner.draw(pygame, self.window)
     
     def check_collision(self):
         """ this method controlls the collision detection of everything 
@@ -137,6 +143,15 @@ class Game:
         
         # check if left mouse button is pressed
         if(pressed[0]):
+            self.portal_positioner.set_x(self.player.get_x())
+            self.portal_positioner.set_y(self.player.get_y())
+            x = mouse_x - self.player.get_x()
+            y = mouse_y - self.player.get_y()
+            
+            angle = atan2(y,x)
+            
+            self.portal_positioner.set_active(True)
+            self.portal_positioner.set_angle(angle)
             print("left is pressed")
         
         # check if right mouse button is pressed
