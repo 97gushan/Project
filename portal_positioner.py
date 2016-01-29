@@ -16,8 +16,8 @@ class Portal_Positioner:
     
     def move(self, dt):
         if(self._active):
-            self._xpos += 500 * dt * cos(self._angle)
-            self._ypos += 500 * dt * sin(self._angle)
+            self._xpos += 1000 * dt * cos(self._angle)
+            self._ypos += 1000 * dt * sin(self._angle)
             
     def get_x(self):
         return self._xpos
