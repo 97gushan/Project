@@ -69,6 +69,18 @@ class Game:
         
         self.portal_positioner.draw(pygame, self.window)
     
+    def place_portal(self):
+        if(self.portal_positioner.get_portal() == "left"):
+            self.portal_1.set_x(self.portal_positioner.get_x())
+            self.portal_1.set_y(self.portal_positioner.get_y())
+            self.portal_1.set_active(True)
+        elif(self.portal_positioner.get_portal() == "right"):
+            self.portal_2.set_x(self.portal_positioner.get_x())
+            self.portal_2.set_y(self.portal_positioner.get_y())
+            self.portal_2.set_active(True)
+        
+        self.portal_positioner.set_active(False)
+    
     def check_collision(self):
         """ this method controlls the collision detection of everything 
             in this game"""
@@ -129,10 +141,7 @@ class Game:
                 
                 # check if the positioner touches the ground
                 if(positioner_y > ground_y-5 and positioner_x > ground_x and positioner_x < ground_w):
-                    self.portal_1.set_x(self.portal_positioner.get_x())
-                    self.portal_1.set_y(self.portal_positioner.get_y())
-                    self.portal_1.set_active(True)
-                    self.portal_positioner.set_active(False)
+                    self.place_portal()
                     break
                         
             # wall
@@ -145,20 +154,14 @@ class Game:
                 # check if the positioner touches the left wall
                 if(wall_d == "left"):
                     if(positioner_x < wall_x + 5 and positioner_y > wall_y + 5 and positioner_y < wall_h):
-                        self.portal_1.set_x(self.portal_positioner.get_x())
-                        self.portal_1.set_y(self.portal_positioner.get_y())
-                        self.portal_1.set_active(True)
-                        self.portal_positioner.set_active(False)
+                        self.place_portal()
                         break
 
                         
                 # check if the positioner touches the right wall
                 elif(wall_d == "right"):
                     if(positioner_x + 30 > wall_x - 5 and positioner_y > wall_y and positioner_y < wall_h):
-                        self.portal_1.set_x(self.portal_positioner.get_x())
-                        self.portal_1.set_y(self.portal_positioner.get_y())
-                        self.portal_1.set_active(True)
-                        self.portal_positioner.set_active(False)
+                        self.place_portal()
                         break
         
     def input(self):
@@ -184,7 +187,10 @@ class Game:
 
         if(pressed[pygame.K_SPACE]):
             self.player.jump()
-           
+        
+        if(pressed[pygame.K_r]):
+            self.portal_1.set_active(False)
+            self.portal_2.set_active(False)
         
         # check for mouse input
         pressed = pygame.mouse.get_pressed()
@@ -203,12 +209,11 @@ class Game:
             self.portal_positioner.set_x(self.player.get_x())
             self.portal_positioner.set_y(self.player.get_y())
             self.portal_positioner.set_active(True)
+            self.portal_positioner.set_portal("left")
             self.portal_positioner.set_angle(angle)
             print("left is pressed")
         
-        # check if right mouse button is pressed
-        if(pressed[2]):
-            self.portal_1.set_active(False)
+        
 
 def run():
 
