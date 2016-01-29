@@ -2,6 +2,7 @@ import pygame
 
 import player
 import terrain
+import portal
 
 class Game:
     def __init__(self):
@@ -22,6 +23,9 @@ class Game:
         
         self.wall = [terrain.Wall(300,300,300,"left"),terrain.Wall(700,400,200,"right"),
                      terrain.Wall(0,0,300,"left"),terrain.Wall(899,0,400,"right"),]
+                     
+        self.portal_1 = portal.Portal(0,0,(255,0,0),0)
+        self.portal_2 = portal.Portal(0,0,(0,0,255),0)
         
     def update(self):
         """ this method handels all the things that will happen
@@ -55,6 +59,9 @@ class Game:
         # draw all the walls    
         for n in range(len(self.wall)):
             self.wall[n].draw(pygame, self.window)
+            
+        self.portal_1.draw(pygame, self.window)
+        self.portal_2.draw(pygame, self.window)
     
     def check_collision(self):
         """ this method controlls the collision detection of everything 
@@ -124,7 +131,17 @@ class Game:
         if(pressed[pygame.K_SPACE]):
             self.player.jump()
            
-
+        
+        # check for mouse input
+        pressed = pygame.mouse.get_pressed()
+        
+        # check if left mouse button is pressed
+        if(pressed[0]):
+            print("left is pressed")
+        
+        # check if right mouse button is pressed
+        if(pressed[2]):
+            print("right is pressed")
 
 def run():
 
