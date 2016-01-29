@@ -6,6 +6,7 @@ class Portal_Positioner:
         self._ypos = 100
         self._angle = 0
         self._active = False
+        self._portal = ""
         
     def draw(self, pg, window):
         """ draw the portal"""
@@ -30,6 +31,9 @@ class Portal_Positioner:
         
     def get_active(self):
         return self._active
+    
+    def get_portal(self):
+        return self._portal
 
     def set_x(self, xpos):
         self._xpos = xpos
@@ -42,6 +46,9 @@ class Portal_Positioner:
         
     def set_active(self, state):
         self._active = state
+        
+    def set_portal(self, state):
+        self._portal = state
         
         
         
