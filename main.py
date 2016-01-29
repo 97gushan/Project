@@ -69,14 +69,17 @@ class Game:
         
         self.portal_positioner.draw(pygame, self.window)
     
-    def place_portal(self):
+    def place_portal(self, type):
         if(self.portal_positioner.get_portal() == "left"):
             self.portal_1.set_x(self.portal_positioner.get_x())
             self.portal_1.set_y(self.portal_positioner.get_y())
+            self.portal_1.set_terrain_type(type)
             self.portal_1.set_active(True)
+            
         elif(self.portal_positioner.get_portal() == "right"):
             self.portal_2.set_x(self.portal_positioner.get_x())
             self.portal_2.set_y(self.portal_positioner.get_y())
+            self.portal_2.set_terrain_type(type)
             self.portal_2.set_active(True)
         
         self.portal_positioner.set_active(False)
@@ -141,7 +144,7 @@ class Game:
                 
                 # check if the positioner touches the ground
                 if(positioner_y > ground_y-5 and positioner_x > ground_x and positioner_x < ground_w):
-                    self.place_portal()
+                    self.place_portal("ground")
                     break
                         
             # wall
@@ -154,14 +157,14 @@ class Game:
                 # check if the positioner touches the left wall
                 if(wall_d == "left"):
                     if(positioner_x < wall_x + 5 and positioner_y > wall_y + 5 and positioner_y < wall_h):
-                        self.place_portal()
+                        self.place_portal("wall")
                         break
 
                         
                 # check if the positioner touches the right wall
                 elif(wall_d == "right"):
                     if(positioner_x + 30 > wall_x - 5 and positioner_y > wall_y and positioner_y < wall_h):
-                        self.place_portal()
+                        self.place_portal("wall")
                         break
         
     def input(self):
