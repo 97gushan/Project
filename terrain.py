@@ -2,7 +2,8 @@ class Terrain:
     def __init__(self, xpos, ypos):
         self._xpos = xpos
         self._ypos = ypos
-        
+    
+    # get methods
     def get_x(self):
         return self._xpos
     
@@ -30,7 +31,7 @@ class Ground (Terrain):
         pg.draw.rect(window,box_color,rect,0)
         pg.draw.line(window, line_color, (self._xpos, self._ypos), (self._xpos + self._width, self._ypos),1)
         
-        
+    # get methods   
     def get_width(self):
         return self._width
         
@@ -46,7 +47,8 @@ class Wall(Terrain):
     def draw(self, pg, window):
         pg.draw.line(window, (0,255,255), (self._xpos, self._ypos), (self._xpos, self._ypos + self._height),1)
         
-        
+    
+    # get methods    
     def get_height(self):
         return self._height
         

@@ -36,8 +36,12 @@ class Game:
             
         # create the game loop
         while self.is_running:
+        
+            # get the delta time and set frame lock to 400 frames
+                # I did not want a framelock but the game was not smooth
+                # when no number was added so i chose a high cap of framerate
             self.delta_time = self.clock.tick(400) / 1000
-            
+                
             self.check_collision()
             
             
@@ -63,13 +67,18 @@ class Game:
         # draw all the walls    
         for n in range(len(self.wall)):
             self.wall[n].draw(pygame, self.window)
-            
+        
+        # draws the two portals
         self.portal_1.draw(pygame, self.window)
         self.portal_2.draw(pygame, self.window)
         
+        # draws the positioner
         self.portal_positioner.draw(pygame, self.window)
     
     def place_portal(self, type):
+        """ this method places the portal on the place that the positioner landed.
+            which portal that is placed depends on the portal_positioners _portal value."""
+        
         if(self.portal_positioner.get_portal() == "left"):
             self.portal_1.set_x(self.portal_positioner.get_x())
             self.portal_1.set_y(self.portal_positioner.get_y())
@@ -82,6 +91,7 @@ class Game:
             self.portal_2.set_terrain_type(type)
             self.portal_2.set_active(True)
         
+        # disables the positioenr
         self.portal_positioner.set_active(False)
     
     def check_collision(self):
@@ -105,7 +115,7 @@ class Game:
                 self.player.set_grounded(True)
                 break
             else:
-                self.player.set_grounded(False)
+                self.player.set_grounded(False)     # did not touch so set grounded to false
         
         
 
@@ -117,14 +127,15 @@ class Game:
             wall_h = self.wall[n].get_height() + self.wall[n].get_y()
             wall_d = self.wall[n].get_direc()
             
-            # check if the player touches the wall
+            # check if the player touches the left wall
             if(wall_d == "left"):
                 if(player_x < wall_x + 5 and player_y > wall_y + 5 and player_y < wall_h):
                     self.player.movable_horizontal("left")
                     break
                 else: 
                     self.player.movable_horizontal("")
-                    
+
+            # check if the player touches the left wall                    
             elif(wall_d == "right"):
                 if(player_x + 30 > wall_x - 5 and player_y > wall_y and player_y < wall_h):
                     self.player.movable_horizontal("right")
@@ -135,6 +146,7 @@ class Game:
         
         """ check for collision between the portal positioner and the terrain"""
         if(self.portal_positioner.get_active()):
+        
             # ground
             for n in range(len(self.ground)):
                 ground_x = self.ground[n].get_x()
@@ -191,6 +203,7 @@ class Game:
         if(pressed[pygame.K_SPACE]):
             self.player.jump()
         
+        # removes both portal 
         if(pressed[pygame.K_r]):
             self.portal_1.set_active(False)
             self.portal_2.set_active(False)
@@ -209,11 +222,11 @@ class Game:
             angle = atan2(y,x)
             
             # call all the necesary methods of the portal_positioner object
-            self.portal_positioner.set_x(self.player.get_x())
+            self.portal_positioner.set_x(self.player.get_x()) # position
             self.portal_positioner.set_y(self.player.get_y())
-            self.portal_positioner.set_active(True)
-            self.portal_positioner.set_portal("left")
-            self.portal_positioner.set_angle(angle)
+            self.portal_positioner.set_active(True)           # make it active
+            self.portal_positioner.set_portal("left")         # type of portal that it will place
+            self.portal_positioner.set_angle(angle)           # which angle it will fly away with
             print("left is pressed")
         
         # check if right mouse button is pressed
@@ -226,6 +239,7 @@ class Game:
             angle = atan2(y,x)
             
             # call all the necesary methods of the portal_positioner object
+            # se above for explanation
             self.portal_positioner.set_x(self.player.get_x())
             self.portal_positioner.set_y(self.player.get_y())
             self.portal_positioner.set_active(True)

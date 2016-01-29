@@ -16,6 +16,8 @@ class Portal_Positioner:
             pg.draw.rect(window,(0,255,0),rect,0)
     
     def move(self, dt):
+        """ this method moves the positioner in the correct direction
+            acording to the angle that is set"""
         if(self._active):
             self._xpos += 1000 * dt * cos(self._angle)
             self._ypos += 1000 * dt * sin(self._angle)
