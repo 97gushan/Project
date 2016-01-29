@@ -129,6 +129,8 @@ class Game:
                 
                 # check if the positioner touches the ground
                 if(positioner_y > ground_y-5 and positioner_x > ground_x and positioner_x < ground_w):
+                    self.portal_1.set_x(self.portal_positioner.get_x())
+                    self.portal_1.set_y(self.portal_positioner.get_y())
                     self.portal_1.set_active(True)
                     self.portal_positioner.set_active(False)
                     break
@@ -143,6 +145,8 @@ class Game:
                 # check if the positioner touches the left wall
                 if(wall_d == "left"):
                     if(positioner_x < wall_x + 5 and positioner_y > wall_y + 5 and positioner_y < wall_h):
+                        self.portal_1.set_x(self.portal_positioner.get_x())
+                        self.portal_1.set_y(self.portal_positioner.get_y())
                         self.portal_1.set_active(True)
                         self.portal_positioner.set_active(False)
                         break
@@ -151,6 +155,8 @@ class Game:
                 # check if the positioner touches the right wall
                 elif(wall_d == "right"):
                     if(positioner_x + 30 > wall_x - 5 and positioner_y > wall_y and positioner_y < wall_h):
+                        self.portal_1.set_x(self.portal_positioner.get_x())
+                        self.portal_1.set_y(self.portal_positioner.get_y())
                         self.portal_1.set_active(True)
                         self.portal_positioner.set_active(False)
                         break
