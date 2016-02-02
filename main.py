@@ -75,20 +75,50 @@ class Game:
         # draws the positioner
         self.portal_positioner.draw(pygame, self.window)
     
-    def place_portal(self, type):
+    def place_portal(self, type, terrain_size):
         """ this method places the portal on the place that the positioner landed.
             which portal that is placed depends on the portal_positioners _portal value."""
         
         if(self.portal_positioner.get_portal() == "left"):
-            self.portal_1.set_x(self.portal_positioner.get_x())
-            self.portal_1.set_y(self.portal_positioner.get_y())
             self.portal_1.set_terrain_type(type)
+            
+            # check if the portal will be placed beneath the wall, 
+            # if it is going to move it upp so the bottom of the portal 
+            # ends at the same position as the bottom of the wall
+            if(type == "wall" and self.portal_positioner.get_y() + 70 > terrain_size):
+                self.portal_1.set_y(terrain_size-70)
+                self.portal_1.set_x(self.portal_positioner.get_x())
+                
+            # check if the portal will be placed to far to the right,
+            # if it is move it left so the right end of the portal
+            # is placed where the ground ends to the right
+            elif(type == "ground" and self.portal_positioner.get_x() + 70 > terrain_size):
+                self.portal_1.set_x(terrain_size-70)
+                self.portal_1.set_y(self.portal_positioner.get_y())
+            
+            # the position is clear to place on
+            else:
+                self.portal_1.set_y(self.portal_positioner.get_y())
+                self.portal_1.set_x(self.portal_positioner.get_x())
+
+
             self.portal_1.set_active(True)
             
         elif(self.portal_positioner.get_portal() == "right"):
-            self.portal_2.set_x(self.portal_positioner.get_x())
-            self.portal_2.set_y(self.portal_positioner.get_y())
             self.portal_2.set_terrain_type(type)
+            
+            # as above but for portal_2
+            if(type == "wall" and self.portal_positioner.get_y() + 70 > terrain_size):
+                self.portal_2.set_y(terrain_size-70)
+                self.portal_2.set_x(self.portal_positioner.get_x())
+            # as above but for portal_2
+            elif(type == "ground" and self.portal_positioner.get_x() + 70 > terrain_size):
+                self.portal_2.set_x(terrain_size-70)
+                self.portal_2.set_y(self.portal_positioner.get_y())
+            else:
+                self.portal_2.set_y(self.portal_positioner.get_y())
+                self.portal_2.set_x(self.portal_positioner.get_x())
+            
             self.portal_2.set_active(True)
         
         # disables the positioenr
@@ -156,7 +186,7 @@ class Game:
                 
                 # check if the positioner touches the ground
                 if(positioner_y > ground_y-5 and positioner_x > ground_x and positioner_x < ground_w):
-                    self.place_portal("ground")
+                    self.place_portal("ground", ground_w)
                     break
                         
             # wall
@@ -169,14 +199,14 @@ class Game:
                 # check if the positioner touches the left wall
                 if(wall_d == "left"):
                     if(positioner_x < wall_x + 5 and positioner_y > wall_y + 5 and positioner_y < wall_h):
-                        self.place_portal("wall")
+                        self.place_portal("wall", wall_h)
                         break
 
                         
                 # check if the positioner touches the right wall
                 elif(wall_d == "right"):
-                    if(positioner_x + 30 > wall_x - 5 and positioner_y > wall_y and positioner_y < wall_h):
-                        self.place_portal("wall")
+                    if(positioner_x +5 > wall_x - 5 and positioner_y > wall_y and positioner_y < wall_h):
+                        self.place_portal("wall", wall_h)
                         break
         
     def input(self):
