@@ -149,20 +149,20 @@ class Game:
         
         
         """ if the portal is a ground portal"""
-        if(portal_1_type == "ground" or portal_2_type == "ground"):
+        if(portal_1_type == "ground"):
             # portal_1 hitbox
             if(player_x > portal_1_x and player_x + 30 < portal_1_x+70 and
                player_y + 55 > portal_1_y):
                 self.player.set_x(self.portal_2.get_teleportation_point()[0])
                 self.player.set_y(self.portal_2.get_teleportation_point()[1])
-                self.player.set_velocity_y(50)
+                #self.player.set_velocity_y(50)
             
-            # portal_2 hitbox
+        if(portal_2_type == "ground"):    # portal_2 hitbox
             if(player_x > portal_2_x and player_x + 30 < portal_2_x+70 and
                player_y + 55 > portal_2_y):
                 self.player.set_x(self.portal_1.get_teleportation_point()[0])
                 self.player.set_y(self.portal_1.get_teleportation_point()[1])
-                self.player.set_velocity_y(50)
+                #self.player.set_velocity_y(50)
                 
     
     def check_collision(self):
