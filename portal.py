@@ -25,6 +25,10 @@ class Portal:
             
                 pg.draw.rect(window,self._color,rect,0)
     
+    def get_teleportation_point(self):
+        if(self._terrain_type == "ground"):
+            return [self._xpos+20, self._ypos-80]
+            
     
     # get  and set methods
     def get_x(self):
