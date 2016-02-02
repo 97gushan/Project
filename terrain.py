@@ -34,7 +34,24 @@ class Ground (Terrain):
     # get methods   
     def get_width(self):
         return self._width
+
+class Roof (Terrain):
+    """ this class describes how the roof will work"""
+    def __init__(self, xpos, ypos, width):
         
+        super().__init__(xpos, ypos)
+
+        self._width = width
+        
+    def draw(self, pg, window):
+        
+        line_color = (0,255,255)
+        
+        pg.draw.line(window, line_color, (self._xpos, self._ypos), (self._xpos + self._width, self._ypos),1)
+        
+    # get methods   
+    def get_width(self):
+        return self._width        
 
 class Wall(Terrain):
     """ this class describes how the walls will work"""
