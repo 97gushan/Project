@@ -25,6 +25,8 @@ class Game:
         self.wall = [terrain.Wall(300,300,300,"left"),terrain.Wall(700,400,200,"right"),
                      terrain.Wall(0,0,300,"left"),terrain.Wall(899,0,400,"right"),]
                      
+        self.roof = [terrain.Roof(0,0,900)]
+                     
         self.portal_1 = portal.Portal(0,0,(255,0,0),0)
         self.portal_2 = portal.Portal(0,0,(0,0,255),0)
         
@@ -67,6 +69,10 @@ class Game:
         # draw all the walls    
         for n in range(len(self.wall)):
             self.wall[n].draw(pygame, self.window)
+        
+        # draw all of the roofs
+        for n in range(len(self.roof)):
+            self.roof[n].draw(pygame, self.window)
         
         # draws the two portals
         self.portal_1.draw(pygame, self.window)
