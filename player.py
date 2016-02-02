@@ -82,3 +82,6 @@ class Player:
         
     def set_grounded(self, state):
         self._grounded = state
+        
+    def set_velocity_y(self, v):
+        self._velocity_y = v
