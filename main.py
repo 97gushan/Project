@@ -78,6 +78,7 @@ class Game:
         self.portal_1.draw(pygame, self.window)
         self.portal_2.draw(pygame, self.window)
         
+        
         # draws the positioner
         self.portal_positioner.draw(pygame, self.window)
     
@@ -178,7 +179,19 @@ class Game:
                     break
                 else: 
                     self.player.movable_horizontal("")
+            
         
+        # player and roof collision
+        for n in range(len(self.roof)):
+            roof_x = self.roof[n].get_x()
+            roof_y = self.roof[n].get_y()
+            roof_w = self.roof[n].get_width() + self.roof[n].get_x()
+            
+            # check if the player touches the roof
+            if(player_y-50 < roof_y+5 and player_x > roof_x and player_x + 30 < roof_w):
+                print("YOU COLLIDED WITH THE ROOOOOOOOFFFFF")
+                break
+             
         
         """ check for collision between the portal positioner and the terrain"""
         if(self.portal_positioner.get_active()):
