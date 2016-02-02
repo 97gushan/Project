@@ -190,6 +190,8 @@ class Game:
             # check if the player touches the roof
             if(player_y-50 < roof_y+5 and player_x > roof_x and player_x + 30 < roof_w):
                 print("YOU COLLIDED WITH THE ROOOOOOOOFFFFF")
+                self.player.set_y(roof_y+5)
+                self.player.set_velocity_y(0)
                 break
              
         
