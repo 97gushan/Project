@@ -99,7 +99,7 @@ class Game:
             # check if the portal will be placed to far to the right,
             # if it is move it left so the right end of the portal
             # is placed where the ground ends to the right
-            elif(type == "ground" and self.portal_positioner.get_x() + 70 > terrain_size):
+            elif((type == "ground" or type == "roof") and self.portal_positioner.get_x() + 70 > terrain_size):
                 self.portal_1.set_x(terrain_size-70)
                 self.portal_1.set_y(self.portal_positioner.get_y())
             
@@ -107,6 +107,7 @@ class Game:
             else:
                 self.portal_1.set_y(self.portal_positioner.get_y())
                 self.portal_1.set_x(self.portal_positioner.get_x())
+
 
 
             self.portal_1.set_active(True)
@@ -119,7 +120,7 @@ class Game:
                 self.portal_2.set_y(terrain_size-70)
                 self.portal_2.set_x(self.portal_positioner.get_x())
             # as above but for portal_2
-            elif(type == "ground" and self.portal_positioner.get_x() + 70 > terrain_size):
+            elif((type == "ground" or type == "roof")  and self.portal_positioner.get_x() + 70 > terrain_size):
                 self.portal_2.set_x(terrain_size-70)
                 self.portal_2.set_y(self.portal_positioner.get_y())
             else:
@@ -210,6 +211,17 @@ class Game:
                     self.place_portal("ground", ground_w)
                     break
                         
+            # roof
+            for n in range(len(self.roof)):
+                roof_x = self.roof[n].get_x()
+                roof_y = self.roof[n].get_y()
+                roof_w = self.roof[n].get_width() + self.roof[n].get_x()
+                
+                
+                # check if the positioner touches the ground
+                if(positioner_y < roof_y+5 and positioner_x > roof_x and positioner_x < roof_w):
+                    self.place_portal("roof", roof_w)
+                    break
             # wall
             for n in range(len(self.wall)):
                 wall_x = self.wall[n].get_x()
@@ -278,7 +290,7 @@ class Game:
             self.portal_positioner.set_active(True)           # make it active
             self.portal_positioner.set_portal("left")         # type of portal that it will place
             self.portal_positioner.set_angle(angle)           # which angle it will fly away with
-            print("left is pressed")
+            #print("left is pressed")
         
         # check if right mouse button is pressed
         if(pressed[2]):
