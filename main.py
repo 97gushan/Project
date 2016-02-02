@@ -132,9 +132,44 @@ class Game:
         # disables the positioenr
         self.portal_positioner.set_active(False)
     
+    def teleport(self):
+        """ this method checks if the player enters a portal
+            if yes the player is then sent into the other portal"""
+        
+        player_x = self.player.get_x()
+        player_y = self.player.get_y()
+        
+        portal_1_x = self.portal_1.get_x()
+        portal_1_y = self.portal_1.get_y()
+        portal_1_type = self.portal_1.get_terrain_type()
+        
+        portal_2_x = self.portal_2.get_x()
+        portal_2_y = self.portal_2.get_y()
+        portal_2_type = self.portal_2.get_terrain_type()
+        
+        
+        """ if the portal is a ground portal"""
+        if(portal_1_type == "ground" or portal_2_type == "ground"):
+            # portal_1 hitbox
+            if(player_x > portal_1_x and player_x + 30 < portal_1_x+70 and
+               player_y + 55 > portal_1_y):
+                self.player.set_x(self.portal_2.get_teleportation_point()[0])
+                self.player.set_y(self.portal_2.get_teleportation_point()[1])
+                self.player.set_velocity_y(50)
+            
+            # portal_2 hitbox
+            if(player_x > portal_2_x and player_x + 30 < portal_2_x+70 and
+               player_y + 55 > portal_2_y):
+                self.player.set_x(self.portal_1.get_teleportation_point()[0])
+                self.player.set_y(self.portal_1.get_teleportation_point()[1])
+                self.player.set_velocity_y(50)
+                
+    
     def check_collision(self):
         """ this method controlls the collision detection of everything 
             in this game"""
+        if(self.portal_1.get_active() and self.portal_2.get_active()):
+            self.teleport()
 
         player_x = self.player.get_x()
         player_y = self.player.get_y() + 50 # player position plus the height to check collision under it
@@ -194,7 +229,7 @@ class Game:
                 self.player.set_y(roof_y+5)
                 self.player.set_velocity_y(0)
                 break
-             
+        
         
         """ check for collision between the portal positioner and the terrain"""
         if(self.portal_positioner.get_active()):
