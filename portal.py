@@ -28,7 +28,8 @@ class Portal:
     def get_teleportation_point(self):
         if(self._terrain_type == "ground"):
             return [self._xpos+20, self._ypos-80]
-            
+        elif(self._terrain_type == "roof"):
+            return [self._xpos+20, self._ypos+10]    
     
     # get  and set methods
     def get_x(self):
