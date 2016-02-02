@@ -19,7 +19,7 @@ class Portal:
             
                 pg.draw.rect(window,self._color,rect,0)
                 
-            elif(self._terrain_type == "ground"):
+            elif(self._terrain_type == "ground" or self._terrain_type == "roof"):
 
                 rect = pg.Rect(self._xpos, self._ypos, 70,10)
             
