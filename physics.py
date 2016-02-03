@@ -1,3 +1,4 @@
+from math import cos, sin
 
 def gravity(v, dt):
     """ this method simulates the fall of an object with
@@ -15,3 +16,11 @@ def gravity(v, dt):
     # return the distance and the velocity
     return(dy, v)
     
+
+def throw(v, angle, dt):
+    k = 0.02
+    
+    v_x = v*cos(angle) * (k+dt)
+    v_y = v*sin(angle) * (k+dt)
+    
+    return [v_x, v_y]
