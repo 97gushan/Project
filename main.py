@@ -82,7 +82,7 @@ class Game:
         # draws the positioner
         self.portal_positioner.draw(pygame, self.window)
     
-    def place_portal(self, type, terrain_size, angle):
+    def place_portal(self, type, terrain_size):
         """ this method places the portal on the place that the positioner landed.
             which portal that is placed depends on the portal_positioners _portal value."""
         
@@ -96,7 +96,6 @@ class Game:
                 self.portal_1.set_y(terrain_size-70)
                 self.portal_1.set_x(self.portal_positioner.get_x())
                 
-                
             # check if the portal will be placed to far to the right,
             # if it is move it left so the right end of the portal
             # is placed where the ground ends to the right
@@ -108,11 +107,9 @@ class Game:
             else:
                 self.portal_1.set_y(self.portal_positioner.get_y())
                 self.portal_1.set_x(self.portal_positioner.get_x())
-            
-            
-            
-            
-            self.portal_1.set_angle(angle)
+
+
+
             self.portal_1.set_active(True)
             
         elif(self.portal_positioner.get_portal() == "right"):
@@ -130,7 +127,6 @@ class Game:
                 self.portal_2.set_y(self.portal_positioner.get_y())
                 self.portal_2.set_x(self.portal_positioner.get_x())
             
-            self.portal_2.set_angle(angle)
             self.portal_2.set_active(True)
         
         # disables the positioenr
@@ -153,14 +149,15 @@ class Game:
         
         
         """ if the portal is a ground portal"""
-        if(portal_1_type == "ground"):      # portal_1 hitbox
+        if(portal_1_type == "ground"):
+            # portal_1 hitbox
             if(player_x > portal_1_x and player_x + 30 < portal_1_x+70 and
                player_y + 55 > portal_1_y):
                 self.player.set_x(self.portal_2.get_teleportation_point()[0])
                 self.player.set_y(self.portal_2.get_teleportation_point()[1])
-                #self.player.set_velocity_y(a)
+                #self.player.set_velocity_y(50)
             
-        if(portal_2_type == "ground"):      # portal_2 hitbox
+        if(portal_2_type == "ground"):    # portal_2 hitbox
             if(player_x > portal_2_x and player_x + 30 < portal_2_x+70 and
                player_y + 55 > portal_2_y):
                 self.player.set_x(self.portal_1.get_teleportation_point()[0])
@@ -246,7 +243,7 @@ class Game:
                 
                 # check if the positioner touches the ground
                 if(positioner_y > ground_y-5 and positioner_x > ground_x and positioner_x < ground_w):
-                    self.place_portal("ground", ground_w, 90)
+                    self.place_portal("ground", ground_w)
                     break
                         
             # roof
@@ -258,7 +255,7 @@ class Game:
                 
                 # check if the positioner touches the ground
                 if(positioner_y < roof_y+5 and positioner_x > roof_x and positioner_x < roof_w):
-                    self.place_portal("roof", roof_w, 270)
+                    self.place_portal("roof", roof_w)
                     break
             # wall
             for n in range(len(self.wall)):
@@ -270,14 +267,14 @@ class Game:
                 # check if the positioner touches the left wall
                 if(wall_d == "left"):
                     if(positioner_x < wall_x + 5 and positioner_y > wall_y + 5 and positioner_y < wall_h):
-                        self.place_portal("wall", wall_h, 0)
+                        self.place_portal("wall", wall_h)
                         break
 
                         
                 # check if the positioner touches the right wall
                 elif(wall_d == "right"):
                     if(positioner_x +5 > wall_x - 5 and positioner_y > wall_y and positioner_y < wall_h):
-                        self.place_portal("wall", wall_h, 180)
+                        self.place_portal("wall", wall_h)
                         break
         
     def input(self):
