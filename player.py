@@ -36,8 +36,10 @@ class Player:
             self._ypos += gravity_calc[0]
             self._velocity_y = gravity_calc[1]
             
+            self._xpos += self._velocity_x
         else:
             self._velocity_y = 0
+            self._velocity_x = 0
             
         
         
@@ -81,7 +83,9 @@ class Player:
 
     def get_direc(self):
         return self._direc
-
+        
+    def get_velocity_y(self):
+        return self._velocity_y
 
     def set_x(self, xpos):
         self._xpos = xpos
