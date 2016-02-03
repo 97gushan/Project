@@ -1,3 +1,5 @@
+from math import radians, pi
+
 class Portal:
     """ this class describes how the portals will work"""
     def __init__(self, xpos, ypos, color, angle):
@@ -38,7 +40,7 @@ class Portal:
         elif(self._terrain_type == "wall"):
             if(self._angle == 0):       # if it is a left wall portal
                 return [self._xpos+20, self._ypos+5]
-            elif(self._angle == 180):   # if it is a right wall portal
+            elif(self._angle == pi):   # if it is a right wall portal
                 return [self._xpos-50, self._ypos+5]
     
     # get  and set methods
@@ -64,7 +66,7 @@ class Portal:
         self._ypos = ypos
     
     def set_angle(self, angle):
-        self._angle = angle
+        self._angle = radians(angle)
         
     def set_active(self, state):
         self._active = state
