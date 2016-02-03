@@ -35,7 +35,7 @@ class Portal:
             return [self._xpos+20, self._ypos-80]
         
         elif(self._terrain_type == "roof"):
-            return [self._xpos+20, self._ypos+10]  
+            return [self._xpos+20, self._ypos+20]  
             
         elif(self._terrain_type == "wall"):
             if(self._angle == 0):       # if it is a left wall portal
