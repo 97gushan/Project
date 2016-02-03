@@ -11,6 +11,7 @@ class Player:
         self._ypos = ypos
         self._direc = direc
         
+        self._velocity_x = 0
         self._velocity_y = - 20
         self._delta_y = 0
         
@@ -34,8 +35,11 @@ class Player:
             gravity_calc = physics.gravity(self._velocity_y, dt)
             self._ypos += gravity_calc[0]
             self._velocity_y = gravity_calc[1]
+            
         else:
             self._velocity_y = 0
+            
+        
         
     def move_horizontal(self, direc, dt):
         """ this method moves the player on the x axis
@@ -59,6 +63,13 @@ class Player:
             self._velocity_y = -75 # change velocity so the player moves upwards
             self._ypos -= 5 # change the y-pos a little bit so it wont get stuck on the line
     
+    
+    
+    def throw(self, v, angle, dt):
+        throw_calc = physics.throw(v, angle,dt)
+        self._velocity_x = throw_calc[0]
+        self._velocity_y = throw_calc[1]
+    
     def movable_horizontal(self, state):
         self._movable = state
     
@@ -70,6 +81,7 @@ class Player:
 
     def get_direc(self):
         return self._direc
+
 
     def set_x(self, xpos):
         self._xpos = xpos
@@ -85,3 +97,4 @@ class Player:
         
     def set_velocity_y(self, v):
         self._velocity_y = v
+        
