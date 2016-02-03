@@ -100,7 +100,9 @@ class Game:
             # check if the portal will be placed to far to the right,
             # if it is move it left so the right end of the portal
             # is placed where the ground ends to the right
-            elif((type == "ground" or type == "roof") and self.portal_positioner.get_x() + 70 > terrain_size):
+            elif((type == "ground" or type == "roof") 
+              and self.portal_positioner.get_x() + 70 > terrain_size):
+              
                 self.portal_1.set_x(terrain_size-70)
                 self.portal_1.set_y(self.portal_positioner.get_y())
             
@@ -123,7 +125,9 @@ class Game:
                 self.portal_2.set_y(terrain_size-70)
                 self.portal_2.set_x(self.portal_positioner.get_x())
             # as above but for portal_2
-            elif((type == "ground" or type == "roof")  and self.portal_positioner.get_x() + 70 > terrain_size):
+            elif((type == "ground" or type == "roof")
+              and self.portal_positioner.get_x() + 70 > terrain_size):
+              
                 self.portal_2.set_x(terrain_size-70)
                 self.portal_2.set_y(self.portal_positioner.get_y())
             else:
@@ -155,27 +159,33 @@ class Game:
         """ if the portal is a ground portal"""
         if(portal_1_type == "ground"):      # portal_1 hitbox
             if(player_x > portal_1_x and player_x + 30 < portal_1_x+70 and
-               player_y + 55 > portal_1_y):
+               player_y + 60 > portal_1_y):
                 self.player.set_x(self.portal_2.get_teleportation_point()[0])
                 self.player.set_y(self.portal_2.get_teleportation_point()[1])
                 
                 # keep the momentum and move in the right direction after exiting portal
-                self.player.throw(self.player.get_velocity_y(), self.portal_2.get_angle(), self.delta_time)
+                self.player.throw(self.player.get_velocity_y(),\
+                                  self.portal_2.get_angle(), \
+                                  self.delta_time)
             
         if(portal_2_type == "ground"):      # portal_2 hitbox
             if(player_x > portal_2_x and player_x + 30 < portal_2_x+70 and
-               player_y + 55 > portal_2_y):
+               player_y + 60 > portal_2_y):
                 self.player.set_x(self.portal_1.get_teleportation_point()[0])
                 self.player.set_y(self.portal_1.get_teleportation_point()[1])
 
                 # keep the momentum and move in the right direction after exiting portal
-                self.player.throw(self.player.get_velocity_y(), self.portal_1.get_angle(), self.delta_time)
+                self.player.throw(self.player.get_velocity_y(), \
+                                  self.portal_1.get_angle(), \
+                                  self.delta_time)
                 
                 
-    
+        
     def check_collision(self):
         """ this method controlls the collision detection of everything 
             in this game"""
+            
+        # when both portals are active the player is able to teleport between them
         if(self.portal_1.get_active() and self.portal_2.get_active()):
             self.teleport()
 

@@ -19,8 +19,8 @@ class Portal_Positioner:
         """ this method moves the positioner in the correct direction
             acording to the angle that is set"""
         if(self._active):
-            self._xpos += 1000 * dt * cos(self._angle)
-            self._ypos += 1000 * dt * sin(self._angle)
+            self._xpos += 2000 * dt * cos(self._angle)
+            self._ypos += 2000 * dt * sin(self._angle)
             
     def get_x(self):
         return self._xpos
