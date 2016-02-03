@@ -36,8 +36,11 @@ class Player:
             self._ypos += gravity_calc[0]
             self._velocity_y = gravity_calc[1]
             
+            # move the player in on the x-axis if there
+            # is a velocity
             self._xpos += self._velocity_x
         else:
+            # set both x and y velocity to 0 if the player is grounded
             self._velocity_y = 0
             self._velocity_x = 0
             
@@ -68,6 +71,10 @@ class Player:
     
     
     def throw(self, v, angle, dt):
+        """ this method takes the velocity, the angle and the
+            delta_time as parameters. Then it calls the physics.throw method
+            whit these values as arguments so it can calculate the 
+            velocity on the x and y axis"""
         throw_calc = physics.throw(v, angle,dt)
         self._velocity_x = throw_calc[0]
         self._velocity_y = throw_calc[1]
@@ -83,7 +90,11 @@ class Player:
 
     def get_direc(self):
         return self._direc
-        
+    
+    def get_velocity_x(self):
+        return self._velocity_x
+
+    
     def get_velocity_y(self):
         return self._velocity_y
 
@@ -98,7 +109,10 @@ class Player:
         
     def set_grounded(self, state):
         self._grounded = state
-        
+    
+    def set_velocity_x(self, v):
+        self._velocity_x = v
+    
     def set_velocity_y(self, v):
         self._velocity_y = v
         
