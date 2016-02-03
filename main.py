@@ -180,10 +180,15 @@ class Game:
                                   self.delta_time)
                 
         """ if the portal is wall portal"""
-        if(portal_1_type == "wall"):
+        if(portal_1_type == "wall"):    # portal 1
+        
             if(self.portal_1.get_angle() == 0):     #left wall portal
+                
+                # check if player enters portal
                 if(player_x < portal_1_x+10 and player_y > portal_1_y and
                   player_y + 50 < portal_1_y + 70):
+                    
+                    
                     self.player.set_x(self.portal_2.get_teleportation_point()[0])
                     self.player.set_y(self.portal_2.get_teleportation_point()[1])
 
@@ -194,14 +199,49 @@ class Game:
                                       
                                       
             if(self.portal_1.get_angle() == pi):     #right wall portal
+                
+                # check if player enters portal
                 if(player_x + 30 > portal_1_x-10 and player_y > portal_1_y and
                   player_y + 50 < portal_1_y + 70):
+                    
+                    
                     self.player.set_x(self.portal_2.get_teleportation_point()[0])
                     self.player.set_y(self.portal_2.get_teleportation_point()[1])
 
                     # keep the momentum and move in the right direction after exiting portal
                     self.player.throw(30, \
                                       self.portal_2.get_angle(), \
+                                      self.delta_time)
+        
+        
+        if(portal_2_type == "wall"): # portal 2
+            
+            # same as above but for portal 2
+            if(self.portal_2.get_angle() == 0):     #left wall portal
+                
+                if(player_x < portal_2_x+10 and player_y > portal_2_y and
+                  player_y + 50 < portal_2_y + 70):
+                    
+                    self.player.set_x(self.portal_1.get_teleportation_point()[0])
+                    self.player.set_y(self.portal_1.get_teleportation_point()[1])
+
+                    # keep the momentum and move in the right direction after exiting portal
+                    self.player.throw(30, \
+                                      self.portal_1.get_angle(), \
+                                      self.delta_time)
+                                      
+                                      
+            if(self.portal_2.get_angle() == pi):     #right wall portal
+                
+                if(player_x + 30 > portal_2_x-10 and player_y > portal_2_y and
+                  player_y + 50 < portal_2_y + 70):
+                
+                    self.player.set_x(self.portal_1.get_teleportation_point()[0])
+                    self.player.set_y(self.portal_1.get_teleportation_point()[1])
+
+                    # keep the momentum and move in the right direction after exiting portal
+                    self.player.throw(30, \
+                                      self.portal_1.get_angle(), \
                                       self.delta_time)
         
     def check_collision(self):
