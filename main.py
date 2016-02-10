@@ -166,7 +166,7 @@ class Game:
                 # keep the momentum and move in the right direction after exiting portal
                 self.player.throw(self.player.get_velocity_y(),\
                                   self.portal_2.get_angle(), \
-                                  self.delta_time)
+                                  self.delta_time, portal_2_type)
             
         if(portal_2_type == "ground"):      # portal_2 hitbox
             if(player_x > portal_2_x and player_x + 30 < portal_2_x+70 and
@@ -177,7 +177,7 @@ class Game:
                 # keep the momentum and move in the right direction after exiting portal
                 self.player.throw(self.player.get_velocity_y(), \
                                   self.portal_1.get_angle(), \
-                                  self.delta_time)
+                                  self.delta_time, portal_1_type)
                 
         """ if the portal is wall portal"""
         if(portal_1_type == "wall"):    # portal 1
@@ -195,7 +195,7 @@ class Game:
                     # keep the momentum and move in the right direction after exiting portal
                     self.player.throw(30, \
                                       self.portal_2.get_angle(), \
-                                      self.delta_time)
+                                      self.delta_time, portal_2_type)
                                       
                                       
             if(self.portal_1.get_angle() == pi):     #right wall portal
@@ -211,7 +211,7 @@ class Game:
                     # keep the momentum and move in the right direction after exiting portal
                     self.player.throw(30, \
                                       self.portal_2.get_angle(), \
-                                      self.delta_time)
+                                      self.delta_time, portal_2_type)
         
         
         if(portal_2_type == "wall"): # portal 2
@@ -228,7 +228,7 @@ class Game:
                     # keep the momentum and move in the right direction after exiting portal
                     self.player.throw(30, \
                                       self.portal_1.get_angle(), \
-                                      self.delta_time)
+                                      self.delta_time, portal_1_type)
                                       
                                       
             if(self.portal_2.get_angle() == pi):     #right wall portal
@@ -242,7 +242,7 @@ class Game:
                     # keep the momentum and move in the right direction after exiting portal
                     self.player.throw(30, \
                                       self.portal_1.get_angle(), \
-                                      self.delta_time)
+                                      self.delta_time, portal_1_type)
         
     def check_collision(self):
         """ this method controlls the collision detection of everything 
