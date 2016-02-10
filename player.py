@@ -70,14 +70,28 @@ class Player:
     
     
     
-    def throw(self, v, angle, dt):
+    def throw(self, v, angle, dt, terrain_type):
         """ this method takes the velocity, the angle and the
             delta_time as parameters. Then it calls the physics.throw method
             whit these values as arguments so it can calculate the 
             velocity on the x and y axis"""
-        throw_calc = physics.throw(v, angle,dt)
-        self._velocity_x = throw_calc[0]
-        self._velocity_y = throw_calc[1]
+        
+        # if the exiting portal is a ground or roof portal add the speed 
+        if(terrain_type == "roof" or terrain_type == "ground"):
+            throw_calc = physics.throw(v, angle,dt)
+            self._velocity_x += throw_calc[0]
+            self._velocity_y += throw_calc[1]
+        
+        elif(terrain_type == "ground"):
+            throw_calc = physics.throw(v, angle,dt)
+            self._velocity_x += throw_calc[0]
+            self._velocity_y = throw_calc[1]
+        
+        # if the exiting portal is a wall replace the speed
+        elif(terrain_type == "wall"):
+            throw_calc = physics.throw(v, angle,dt)
+            self._velocity_x = throw_calc[0]
+            self._velocity_y = throw_calc[1]
     
     def movable_horizontal(self, state):
         self._movable = state
