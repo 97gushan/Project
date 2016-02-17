@@ -180,6 +180,7 @@ class Game:
                                       self.portal_2.get_angle(), \
                                       self.delta_time, portal_2_type)
                                       
+                                      
                     self.teleport_cooldown = True
                 
             if(portal_2_type == "ground"):      # portal_2 hitbox
@@ -193,7 +194,36 @@ class Game:
                                       self.portal_1.get_angle(), \
                                       self.delta_time, portal_1_type)
                     
+                    
                     self.teleport_cooldown = True
+            
+            """ if the portal is a roof portal"""
+            if(portal_1_type == "roof"):      # portal_1 hitbox
+                if(player_x > portal_1_x and player_x + 30 < portal_1_x+70 and
+                   player_y - 60 < portal_1_y):
+                    self.player.set_x(self.portal_2.get_teleportation_point()[0])
+                    self.player.set_y(self.portal_2.get_teleportation_point()[1])
+                    
+                    if(portal_2_type == "wall"):
+                        self.player.throw(self.player.get_velocity_y() * -1,\
+                                          self.portal_2.get_angle(), \
+                                          self.delta_time, portal_2_type )
+                                      
+                    self.teleport_cooldown = True
+                
+            if(portal_2_type == "roof"):      # portal_2 hitbox
+                if(player_x > portal_2_x and player_x + 30 < portal_2_x+70 and
+                   player_y - 60 < portal_2_y):
+                    self.player.set_x(self.portal_1.get_teleportation_point()[0])
+                    self.player.set_y(self.portal_1.get_teleportation_point()[1])
+
+                    if(portal_1_type == "wall"):
+                        self.player.throw(self.player.get_velocity_y()* -1, \
+                                          self.portal_1.get_angle(), \
+                                          self.delta_time, portal_1_type)
+                    
+                    self.teleport_cooldown = True
+                    
                     
             """ if the portal is wall portal"""
             if(portal_1_type == "wall"):    # portal 1
@@ -329,7 +359,6 @@ class Game:
             
             # check if the player touches the roof
             if(player_y-50 < roof_y+5 and player_x > roof_x and player_x + 30 < roof_w):
-                print("YOU COLLIDED WITH THE ROOOOOOOOFFFFF")
                 self.player.set_y(roof_y+5)
                 self.player.set_velocity_y(0)
                 break
@@ -357,7 +386,7 @@ class Game:
                 roof_w = self.roof[n].get_width() + self.roof[n].get_x()
                 
                 
-                # check if the positioner touches the ground
+                # check if the positioner touches the roof
                 if(positioner_y < roof_y+5 and positioner_x > roof_x and positioner_x < roof_w):
                     self.place_portal("roof", roof_w, 270)
                     break
