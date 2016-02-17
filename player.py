@@ -88,7 +88,9 @@ class Player:
             
             # if the terrain_type is ground the player should move upwards 
             # so invert the y speed
-            self._velocity_y = self._velocity_y * -1
+            self._velocity_y = self._velocity_y * -0.95 # multiply by -0.95 to prevent the player
+                                                        # from increasing in velocity when falling 
+                                                        # through the same ground portals
                     
         # if the exiting portal is a wall replace the speed
         elif(terrain_type == "wall"):
