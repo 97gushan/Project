@@ -84,9 +84,12 @@ class Player:
         
         elif(terrain_type == "ground"):
             throw_calc = physics.throw(v, angle,dt)
-            self._velocity_x += throw_calc[0]
-            self._velocity_y = throw_calc[1]
-        
+            self._velocity_x = throw_calc[0]
+            
+            # if the terrain_type is ground the player should move upwards 
+            # so invert the y speed
+            self._velocity_y = self._velocity_y * -1
+                    
         # if the exiting portal is a wall replace the speed
         elif(terrain_type == "wall"):
             throw_calc = physics.throw(v, angle,dt)
