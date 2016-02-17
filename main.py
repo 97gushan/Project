@@ -33,7 +33,7 @@ class Game:
         self.portal_positioner = portal_positioner.Portal_Positioner()
         
         self.teleport_cooldown = False
-        self.teleport_cooldown_timer = 0.8
+        self.teleport_cooldown_timer = 0.3
         
     def update(self):
         """ this method handels all the things that will happen
@@ -60,7 +60,7 @@ class Game:
                 self.teleport_cooldown_timer -= 1/400 + self.delta_time
                 if(self.teleport_cooldown_timer <= 0):
                     self.teleport_cooldown = False
-                    self.teleport_cooldown_timer = 0.8
+                    self.teleport_cooldown_timer = 0.3
             
             self.input()
             self.draw()
