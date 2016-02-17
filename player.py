@@ -77,7 +77,7 @@ class Player:
             velocity on the x and y axis"""
         
         # if the exiting portal is a ground or roof portal add the speed 
-        if(terrain_type == "roof" or terrain_type == "ground"):
+        if(terrain_type == "roof"):
             throw_calc = physics.throw(v, angle,dt)
             self._velocity_x += throw_calc[0]
             self._velocity_y += throw_calc[1]
