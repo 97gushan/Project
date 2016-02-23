@@ -35,6 +35,7 @@ class Game:
         self.teleport_cooldown = False
         self.teleport_cooldown_timer = 0.3
         
+        self.change_level(1)
 
     def update(self):
         """ this method handels all the things that will happen
@@ -482,7 +483,24 @@ class Game:
             self.portal_positioner.set_portal("right")
             self.portal_positioner.set_angle(angle)
 
+    
+    def change_level(self, level):
+        """ this method is used to change the current level"""
+        
+        if(level == 1):
+            self.player.set_x(50)
+            self.player.set_y(50)
+        
+            self.ground = [terrain.Ground(0,150,100),terrain.Ground(150,700,400),
+                           terrain.Ground(700,400,200)]
 
+            self.wall = [terrain.Wall(100,150,900,"left"),terrain.Wall(150,700,200,"right"),
+                         terrain.Wall(0,0,150,"left"),terrain.Wall(899,0,400,"right"),
+                         terrain.Wall(700,400,500,"right"),terrain.Wall(550,700,300,"left"),
+                         terrain.Wall(300,0,300,"right"),terrain.Wall(500,0,300,"left"),]
+
+            self.roof = [terrain.Roof(0,0,300), terrain.Roof(300,300,200), terrain.Roof(500,0,400)]
+            
 def run():
 
     pygame.init()
