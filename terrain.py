@@ -46,8 +46,14 @@ class Roof (Terrain):
     def draw(self, pg, window):
         
         line_color = (0,255,255)
+        box_color = (45,45,45)
+        
+        # draw out roof above the line
+        rect = pg.Rect(self._xpos, 0, self._width, self._ypos)
         
         pg.draw.line(window, line_color, (self._xpos, self._ypos), (self._xpos + self._width, self._ypos),1)
+        pg.draw.rect(window,box_color,rect,0)
+
         
     # get methods   
     def get_width(self):
