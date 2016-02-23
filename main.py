@@ -35,7 +35,8 @@ class Game:
         self.teleport_cooldown = False
         self.teleport_cooldown_timer = 0.3
         
-        self.change_level(1)
+        self.exit_point = [800,350]
+        
 
     def update(self):
         """ this method handels all the things that will happen
@@ -94,6 +95,13 @@ class Game:
 
         # draws the positioner
         self.portal_positioner.draw(pygame, self.window)
+        
+        
+        # draw the exit point
+        box_color = (0,45,45)
+        rect = pygame.Rect(self.exit_point[0], self.exit_point[1], 40,40)
+        pygame.draw.rect(self.window,box_color,rect,0)
+
 
     def place_portal(self, type, terrain_size, angle):
         """ this method places the portal on the place that the positioner landed.
@@ -367,7 +375,13 @@ class Game:
                 self.player.set_velocity_y(0)
                 break
 
-
+        
+        # collision between player and exit point
+        if(player_x > self.exit_point[0] and player_x + 30 < self.exit_point[0]+40 and
+          player_y > self.exit_point[1]and player_y < self.exit_point[1] + 100):
+            print("wubwuwbuwbwubwubwubwub")
+            self.change_level(1)
+        
         """ check for collision between the portal positioner and the terrain"""
         if(self.portal_positioner.get_active()):
 
