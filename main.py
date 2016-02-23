@@ -377,10 +377,14 @@ class Game:
 
         
         # collision between player and exit point
-        if(player_x > self.exit_point[0] and player_x + 30 < self.exit_point[0]+40 and
+        if(player_x+30 > self.exit_point[0] and player_x < self.exit_point[0]+40 and
           player_y > self.exit_point[1]and player_y < self.exit_point[1] + 100):
-            print("wubwuwbuwbwubwubwubwub")
             self.change_level(1)
+            
+        # if the player falls out of the map, reposition him to the startposition
+        if(player_y > 1000):
+            self.player.set_x(50)
+            self.player.set_y(50)
         
         """ check for collision between the portal positioner and the terrain"""
         if(self.portal_positioner.get_active()):
@@ -502,9 +506,12 @@ class Game:
         """ this method is used to change the current level"""
         
         if(level == 1):
+            # reposition the player
             self.player.set_x(50)
             self.player.set_y(50)
-        
+            
+            
+            # create new terrain
             self.ground = [terrain.Ground(0,150,100),terrain.Ground(150,700,400),
                            terrain.Ground(700,400,200)]
 
@@ -514,6 +521,10 @@ class Game:
                          terrain.Wall(300,0,300,"right"),terrain.Wall(500,0,300,"left"),]
 
             self.roof = [terrain.Roof(0,0,300), terrain.Roof(300,300,200), terrain.Roof(500,0,400)]
+            
+            # deactivate portals
+            self.portal_1.set_active(False)
+            self.portal_2.set_active(False)
             
 def run():
 
