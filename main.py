@@ -34,6 +34,7 @@ class Game:
 
         self.teleport_cooldown = False
         self.teleport_cooldown_timer = 0.3
+        
 
     def update(self):
         """ this method handels all the things that will happen
@@ -336,7 +337,8 @@ class Game:
 
             # check if the player touches the left wall
             if(wall_d == "left"):
-                if(player_x < wall_x + 5 and player_y > wall_y + 5 and player_y < wall_h):
+                if(player_x < wall_x + 5 and player_y > wall_y + 5 and player_y < wall_h and
+                    player_x > wall_x - 50):
                     self.player.movable_horizontal("left")
                     break
                 else:
@@ -344,7 +346,8 @@ class Game:
 
             # check if the player touches the left wall
             elif(wall_d == "right"):
-                if(player_x + 30 > wall_x - 5 and player_y > wall_y and player_y < wall_h):
+                if(player_x + 30 > wall_x - 5 and player_y > wall_y and player_y < wall_h and
+                    player_x < wall_x + 50):
                     self.player.movable_horizontal("right")
                     break
                 else:
@@ -399,14 +402,16 @@ class Game:
 
                 # check if the positioner touches the left wall
                 if(wall_d == "left"):
-                    if(positioner_x < wall_x + 5 and positioner_y > wall_y + 5 and positioner_y < wall_h):
+                    if(positioner_x < wall_x + 5 and positioner_y > wall_y + 5 and positioner_y < wall_h
+                        and positioner_x > wall_x - 50):
                         self.place_portal("wall", wall_h, 0)
                         break
 
 
                 # check if the positioner touches the right wall
                 elif(wall_d == "right"):
-                    if(positioner_x +5 > wall_x - 5 and positioner_y > wall_y and positioner_y < wall_h):
+                    if(positioner_x +5 > wall_x - 5 and positioner_y > wall_y and positioner_y < wall_h
+                        and positioner_x < wall_x + 50):
                         self.place_portal("wall", wall_h, 180)
                         break
 
@@ -476,6 +481,7 @@ class Game:
             self.portal_positioner.set_active(True)
             self.portal_positioner.set_portal("right")
             self.portal_positioner.set_angle(angle)
+
 
 def run():
 
