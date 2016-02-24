@@ -34,6 +34,9 @@ class Game:
 
         self.teleport_cooldown = False
         self.teleport_cooldown_timer = 0.3
+        
+        self.exit_point = [800,350]
+        
 
     def update(self):
         """ this method handels all the things that will happen
@@ -92,6 +95,13 @@ class Game:
 
         # draws the positioner
         self.portal_positioner.draw(pygame, self.window)
+        
+        
+        # draw the exit point
+        box_color = (0,45,45)
+        rect = pygame.Rect(self.exit_point[0], self.exit_point[1], 40,40)
+        pygame.draw.rect(self.window,box_color,rect,0)
+
 
     def place_portal(self, type, terrain_size, angle):
         """ this method places the portal on the place that the positioner landed.
@@ -336,7 +346,8 @@ class Game:
 
             # check if the player touches the left wall
             if(wall_d == "left"):
-                if(player_x < wall_x + 5 and player_y > wall_y + 5 and player_y < wall_h):
+                if(player_x < wall_x + 5 and player_y > wall_y + 5 and player_y < wall_h and
+                    player_x > wall_x - 50):
                     self.player.movable_horizontal("left")
                     break
                 else:
@@ -344,7 +355,8 @@ class Game:
 
             # check if the player touches the left wall
             elif(wall_d == "right"):
-                if(player_x + 30 > wall_x - 5 and player_y > wall_y and player_y < wall_h):
+                if(player_x + 30 > wall_x - 5 and player_y > wall_y and player_y < wall_h and
+                    player_x < wall_x + 50):
                     self.player.movable_horizontal("right")
                     break
                 else:
@@ -363,7 +375,17 @@ class Game:
                 self.player.set_velocity_y(0)
                 break
 
-
+        
+        # collision between player and exit point
+        if(player_x+30 > self.exit_point[0] and player_x < self.exit_point[0]+40 and
+          player_y > self.exit_point[1]and player_y < self.exit_point[1] + 100):
+            self.change_level(1)
+            
+        # if the player falls out of the map, reposition him to the startposition
+        if(player_y > 1000):
+            self.player.set_x(50)
+            self.player.set_y(50)
+        
         """ check for collision between the portal positioner and the terrain"""
         if(self.portal_positioner.get_active()):
 
@@ -399,14 +421,16 @@ class Game:
 
                 # check if the positioner touches the left wall
                 if(wall_d == "left"):
-                    if(positioner_x < wall_x + 5 and positioner_y > wall_y + 5 and positioner_y < wall_h):
+                    if(positioner_x < wall_x + 5 and positioner_y > wall_y + 5 and positioner_y < wall_h
+                        and positioner_x > wall_x - 50):
                         self.place_portal("wall", wall_h, 0)
                         break
 
 
                 # check if the positioner touches the right wall
                 elif(wall_d == "right"):
-                    if(positioner_x +5 > wall_x - 5 and positioner_y > wall_y and positioner_y < wall_h):
+                    if(positioner_x +5 > wall_x - 5 and positioner_y > wall_y and positioner_y < wall_h
+                        and positioner_x < wall_x + 50):
                         self.place_portal("wall", wall_h, 180)
                         break
 
@@ -477,6 +501,31 @@ class Game:
             self.portal_positioner.set_portal("right")
             self.portal_positioner.set_angle(angle)
 
+    
+    def change_level(self, level):
+        """ this method is used to change the current level"""
+        
+        if(level == 1):
+            # reposition the player
+            self.player.set_x(50)
+            self.player.set_y(50)
+            
+            
+            # create new terrain
+            self.ground = [terrain.Ground(0,150,100),terrain.Ground(150,700,400),
+                           terrain.Ground(700,400,200)]
+
+            self.wall = [terrain.Wall(100,150,900,"left"),terrain.Wall(150,700,200,"right"),
+                         terrain.Wall(0,0,150,"left"),terrain.Wall(899,0,400,"right"),
+                         terrain.Wall(700,400,500,"right"),terrain.Wall(550,700,300,"left"),
+                         terrain.Wall(300,0,300,"right"),terrain.Wall(500,0,300,"left"),]
+
+            self.roof = [terrain.Roof(0,0,300), terrain.Roof(300,300,200), terrain.Roof(500,0,400)]
+            
+            # deactivate portals
+            self.portal_1.set_active(False)
+            self.portal_2.set_active(False)
+            
 def run():
 
     pygame.init()
