@@ -1,5 +1,6 @@
 import physics
-
+import pygame
+import math
 
 class Player:
 
@@ -19,8 +20,25 @@ class Player:
 
         self._movable = ""
         
+        self._portal_gun = pygame.image.load("portalgun.png")
+        self._portal_gun = pygame.transform.smoothscale(self._portal_gun, (60,30))
+        self._portal_rect = self._portal_gun.get_rect()
+        self._angle = 180
+        
+        
     def draw(self, pg, window):
         """ draws the player""" 
+        x = 30*math.cos(math.radians(self._angle))
+        y = 30*math.sin(math.radians(self._angle))
+
+        # draw a rotating portal gun
+        rot_img = pg.transform.rotate(self._portal_gun, self._angle)
+        rot_img_rect = rot_img.get_rect()
+        rot_img_rect.center = (self._xpos + 15 + x, self._ypos + 15 - y)
+        
+        window.blit(rot_img, rot_img_rect)
+        
+        # draw player
         rect = pg.Rect(self._xpos, self._ypos, 30,50)
         color = (0,0,0)
         
@@ -44,6 +62,7 @@ class Player:
             self._velocity_y = 0
             self._velocity_x = 0
             
+        self._portal_rect[0], self._portal_rect[1] = self._xpos, self._ypos
         
         
     def move_horizontal(self, direc, dt):
@@ -134,4 +153,7 @@ class Player:
     
     def set_velocity_y(self, v):
         self._velocity_y = v
+        
+    def set_angle(self, angle):
+        self._angle = math.degrees(-1*angle)
         

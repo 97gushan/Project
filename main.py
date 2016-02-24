@@ -94,7 +94,7 @@ class Game:
 
 
         # draws the positioner
-        self.portal_positioner.draw(pygame, self.window)
+        #self.portal_positioner.draw(pygame, self.window)
         
         
         # draw the exit point
@@ -465,16 +465,18 @@ class Game:
 
         # check for mouse input
         pressed = pygame.mouse.get_pressed()
+        
+        # get the x and y values between the player and the mouse
+        x = mouse_x - self.player.get_x()
+        y = mouse_y - self.player.get_y()
 
+        # calculate the angle
+        angle = atan2(y,x)
+        
+        self.player.set_angle(angle)
+        
         # check if left mouse button is pressed
         if(pressed[0]):
-
-            # get the x and y values between the player and the mouse
-            x = mouse_x - self.player.get_x()
-            y = mouse_y - self.player.get_y()
-
-            # calculate the angle
-            angle = atan2(y,x)
 
             # call all the necesary methods of the portal_positioner object
             self.portal_positioner.set_x(self.player.get_x()) # position
@@ -486,12 +488,6 @@ class Game:
 
         # check if right mouse button is pressed
         if(pressed[2]):
-            # get the x and y values between the player and the mouse
-            x = mouse_x - self.player.get_x()
-            y = mouse_y - self.player.get_y()
-
-            # calculate the angle
-            angle = atan2(y,x)
 
             # call all the necesary methods of the portal_positioner object
             # se above for explanation
