@@ -384,7 +384,7 @@ class Game:
         # if the player falls out of the map, reposition him to the startposition
         if(player_y > 1000):
             self.player.set_x(50)
-            self.player.set_y(50)
+            self.player.set_y(40)
         
         """ check for collision between the portal positioner and the terrain"""
         if(self.portal_positioner.get_active()):
