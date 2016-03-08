@@ -28,14 +28,19 @@ class Player:
         
     def draw(self, pg, window):
         """ draws the player""" 
+        
+        # get the new center position that the gun will have to enable better rotation
         x = 30*math.cos(math.radians(self._angle))
         y = 30*math.sin(math.radians(self._angle))
 
-        # draw a rotating portal gun
+        # get all the correct values for the portalguns draw position
         rot_img = pg.transform.rotate(self._portal_gun, self._angle)
         rot_img_rect = rot_img.get_rect()
-        rot_img_rect.center = (self._xpos + 15 + x, self._ypos + 15 - y)
+        rot_img_rect.center = (self._xpos + 15 + x, self._ypos + 15 - y) # add 15 to x and y to draw out in the center of the player
+                                                                         # add x and remove y to draw the gun on a position that will
+                                                                         # make it look like it rotates around the players center
         
+        # draw it out
         window.blit(rot_img, rot_img_rect)
         
         # draw player
