@@ -12,3 +12,10 @@ Fysikberäkningarna kommer fokuseras mest kring kaströrelser med framförallt v
 
 ####Referenser:
 http://www.pygame.org/docs/ref/
+
+
+
+##Analys
+
+#####Placera portaler
+När spelaren klickar på vänster musknapp så skickas en liten kub ut kallad portal_positioner. När detta objekt kolliderar med en del av terrängen så placeras en portal ut på den positionen. Detta är ett simpelt och effektivt sätt att placera ut portalerna på men det har sina problem då den rör sig relativt fort. När objektet rör sig i en hög hastighet (som den behöver göra för en bättre spelupplevelse) så kommer kollisionen inte alltid att upptäckas precis vid väggens kant. Den sker ofta lite innanför. Detta kan motarbetas stort sett på två olika sätt: sänka hastigheten hos objektet eller att placera portalen vid väggens x-position (eller y-position om det är tak eller golv). Första alternativet ville jag inte göra då det skulle ta alldeles för lång tid mellan knapptryck tills portalen är ute. Det andra alternativet är dock en bra utvecklingsmöjlighet som kräver lite arbete. 
