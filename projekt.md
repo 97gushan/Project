@@ -12,7 +12,9 @@ Fysikberäkningarna kommer fokuseras mest kring kaströrelser med framförallt v
 
 ####Referenser:
 http://www.pygame.org/docs/ref/
+
 http://flask.pocoo.org/docs/0.10/
+
 http://docs.python-requests.org/en/master/
 
 ##Analys
