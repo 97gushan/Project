@@ -22,6 +22,8 @@ När spelaren klickar på en musknapp så skickas en liten kub ut kallad portal_
 
 Då kollision mellan positioner och terräng kollar om positionern är innanför terrängen leder det ibland till lite andra buggar när positionern rör sig i en hög hastighet. Ibland kan koden tolka att portalen vill sättas upp på en vägg istället för ett tak då positionern är innanför båda men koden kollar på kollision för väggar först. Detta bekymmer kan lösas genom att antingen sänka hastigheten hos positionern eller att man försöker hitta en annan lösning på placering utav portaler. 
 
+![alt text] (https://github.com/97gushan/Project/blob/master/positioner_bug.png)
+
 
 #####Rotera portalgun
 Då PyGame enbart kan rotera bilder runt bildens mittpunkt så blev det lite bekymmer. Detta löstes genom att att utnyttja cos och sin för att få ut kateterna som när objektet flyttas efter dom så roteras den längs ut med hypotenusan. 
