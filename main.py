@@ -1,4 +1,6 @@
 import pygame
+import requests
+from random import randint
 from math import atan2, pi
 import player
 import terrain
@@ -463,6 +465,20 @@ class Game:
             self.portal_1.set_active(False)
             self.portal_2.set_active(False)
 
+        
+        # simulate a highscore
+        if(pressed[pygame.K_i]):
+            """ this line of code makes a post to the URL writen. It takes two values in a dictionary.
+                                                                  The first is the command, in this case "highscore"
+                                                                  The second is the score, im just using a random number
+                                                                  to simulate a highscore.
+            The return is then saved in the variable "s" and is then writen out to check so the post was succesfull"""                        
+                                    
+            s = requests.post("http://97gushan.pythonanywhere.com/hub/", data={"command":"highscore", "score":randint(0,1000)})
+
+            print(s.text)
+            
+            
         # check for mouse input
         pressed = pygame.mouse.get_pressed()
         
