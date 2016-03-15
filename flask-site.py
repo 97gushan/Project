@@ -10,7 +10,6 @@ app = Flask(__name__)
 
 DATABASE = "mysite/testdb.db"
 
-value = "kakor"
 
 def create_table():
     """ create the table
@@ -91,7 +90,6 @@ def post_stuff():
     """ this function is called by the local script"""
 
 
-    global value
     command = request.form.get('command')
 
     # create the highscore table
