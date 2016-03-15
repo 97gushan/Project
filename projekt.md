@@ -36,10 +36,15 @@ Portalerna fungerar så att när spelaren kolliderar med en position lite framf�
 #####Portaler med annan vinkel
 Grundtanken var att göra så att man kan placera portaler med en vinkel på 45 eller 135 grader. Denna idé blev svår att genomföra med det sätt som portaler placeras ut. Just nu placeras de som skrivet tidigare när portal_positioner kolliderar med en bit terräng. Denna kollisionsdetektion blir komplicerad att göra om väggen som positionern ska kollidera med är vinklad. En möjlig väg att lösa detta problem på är möjligtvis att man utnyttjar räda linjens ekvation. Man använder sig av den för att kolla om x positionen som positionern har ger ett y-värde som överanstämmer med linjens y-värde.
 
-##### Fysik
+#####Fysik
 Det finns två olika funktioner som gör fysiska beräkningar. För att få en rörelse som känns bra när man spelar och då jag inte räknar något på hur lång tid som har förflutit sedan programmet startade valde jag att använda mig utav en konstant utöver delta_tiden. Detta för att det annars skulle ge en väldigt låg acceleration neråt vilket inte skulle vara intressant att spela med. 
 
-##### terräng
+#####Terräng
 Terrängen fungerar i grund och botten att det är en linje som placeras ut när objektet skapas. Sedan om det är ett tak eller golv så fylls området över respektive under med en grå låda. Då all terräng är utplacerade för hand kommer kanten på alla tak och golv alltid vara i kontakt med en vägg. Detta försäkrar att ingen vägg kommer vara placerad mitt ute i ingenstans. 
 
 Kollision mellan spelare och terräng har även den samma problem som tidigare positionering. Dock så rör sig spelaren i en betydligt lägre hastighet vilket förenklar saker och ting. Problemet blir inte lika stort då kollisionen kan upptäckas innan spelaren har rört sig allt för långt in.
+
+#####Highscore
+Då det inte finns något sätt att direkt förlora på i spelet eller någon direkt poäng att spara undan så valde jag att när användaren trycker på "i" så skickas POST kommandot till URLn med kommandot "highscore" och ett slumpat tal som ska simulera poäng. Servern tar då och läser av kommandot för att sedan kolla om den nya poängen slår någon av de äldre. Slås något av de tio poängen så flyttas de undre ner ett steg. Sedan sparas den nya highscore-listan till databasen igen. 
+
+När en användare går in på highscore-sidan via nätet (97gushan.pythonanywhere.com) så tas highscorelistan från databasen. Sedan läggs vilken position varje värde har, värdet och sist en br-tagg (för att hoppa ned en rad) till i en lista som sedan returneras och då även skrivs ut för användaren.
