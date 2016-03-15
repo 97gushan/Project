@@ -39,6 +39,8 @@ Grundtanken var att göra så att man kan placera portaler med en vinkel på 45 
 #####Fysik
 Det finns två olika funktioner som gör fysiska beräkningar. För att få en rörelse som känns bra när man spelar och då jag inte räknar något på hur lång tid som har förflutit sedan programmet startade valde jag att använda mig utav en konstant utöver delta_tiden. Detta för att det annars skulle ge en väldigt låg acceleration neråt vilket inte skulle vara intressant att spela med. 
 
+Kast funktionen är uppbyggd så att den ska klara av kast med olika vinklar för att enklare kunna utveckla spelet.
+
 #####Terräng
 Terrängen fungerar i grund och botten att det är en linje som placeras ut när objektet skapas. Sedan om det är ett tak eller golv så fylls området över respektive under med en grå låda. Då all terräng är utplacerade för hand kommer kanten på alla tak och golv alltid vara i kontakt med en vägg. Detta försäkrar att ingen vägg kommer vara placerad mitt ute i ingenstans. 
 
